@@ -9,7 +9,7 @@ from keras.models import Sequential
 from keras.utils import to_categorical
 from sklearn.preprocessing import LabelEncoder
 
-dataframe = pandas.read_csv("./datasets/dataset_back_view.csv", header=0)
+dataframe = pandas.read_csv(os.path.join('model-creation','datasets', 'dataset_back_view.csv'), header=0)
 dataset = dataframe.values
 dataset = dataset.tolist()
 
@@ -101,21 +101,21 @@ model.fit(np.array(X), np.array(dummy_y), epochs=25, batch_size=10)
 scores = model.evaluate(np.array(X), np.array(dummy_y), verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
 
-# validate_dataframe = pandas.read_csv("test.csv", header=0)
-# validate_dataset = validate_dataframe.values
-# val_X = [i[:-1] for i in validate_dataset.tolist()]
-# val_Y = [i[-1] for i in validate_dataset.tolist()]
+validate_dataframe = pandas.read_csv(os.path.join('test-predict','datasets', 'test_back_view.csv'), header=0)
+validate_dataset = validate_dataframe.values
+val_X = [i[:-1] for i in validate_dataset.tolist()]
+val_Y = [i[-1] for i in validate_dataset.tolist()]
 
-# labels = dict(zip(encoder.classes_, range(len(encoder.classes_))))
-# print(labels)
-# preds = model.predict(val_X)
-# preds = preds.tolist()
-# for i in range(0, len(preds)):
-#     print(
-#         f"\nitem#{i}: {max(preds[i])} - {list(labels.keys())[list(labels.values()).index(preds[i].index(max(preds[i])))]}, but expected - {val_Y[i]}")
-#     print(preds[i])
+labels = dict(zip(encoder.classes_, range(len(encoder.classes_))))
+print(labels)
+preds = model.predict(val_X)
+preds = preds.tolist()
+for i in range(0, len(preds)):
+    print(
+        f"\nitem#{i}: {max(preds[i])} - {list(labels.keys())[list(labels.values()).index(preds[i].index(max(preds[i])))]}, but expected - {val_Y[i]}")
+    print(preds[i])
 
 
 # save the trained model
 model.save(os.path.join('trained-model',
-           'posture_assessment_trained_model.h5'))
+           'posture_back_view_assessment_trained_model.h5'))
