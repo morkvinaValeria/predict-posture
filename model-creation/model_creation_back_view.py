@@ -9,7 +9,7 @@ from keras.models import Sequential
 from keras.utils import to_categorical
 from sklearn.preprocessing import LabelEncoder
 
-dataframe = pandas.read_csv("dataset.csv", header=0)
+dataframe = pandas.read_csv("./datasets/dataset_back_view.csv", header=0)
 dataset = dataframe.values
 dataset = dataset.tolist()
 
@@ -105,18 +105,6 @@ print("Accuracy: %.2f%%" % (scores[1]*100))
 # validate_dataset = validate_dataframe.values
 # val_X = [i[:-1] for i in validate_dataset.tolist()]
 # val_Y = [i[-1] for i in validate_dataset.tolist()]
-# val_pos_dataset = []
-# for i in val_X:
-#     is_neg = False
-#     for val in i:
-#         if val < 0:
-#             is_neg = True
-#     if is_neg:
-#         min_val = abs(min(i))
-#         val_pos_dataset.append([item+min_val for item in i])
-#     else:
-#         val_pos_dataset.append(i)
-# val_X = val_pos_dataset
 
 # labels = dict(zip(encoder.classes_, range(len(encoder.classes_))))
 # print(labels)

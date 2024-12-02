@@ -9,7 +9,7 @@ from keras.models import Sequential
 from keras.utils import to_categorical
 from sklearn.preprocessing import LabelEncoder
 
-dataframe = pandas.read_csv("dataset_side_view.csv", header=0)
+dataframe = pandas.read_csv("./datasets/dataset_side_view.csv", header=0)
 dataset = dataframe.values
 dataset = dataset.tolist()
 
