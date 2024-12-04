@@ -19,14 +19,15 @@ kyphotic = dataset[50:100]
 lordotic = dataset[100:150]
 normal = dataset[150:200]
 
-for i in range(0, 50):
-    new_el = []
-    new_el.append(180.0-float(str(normal[i][0])))
-    new_el.append(180.0-float(str(normal[i][1])))
-    new_el.append(180.0-float(str(normal[i][2])))
-    new_el.append(180.0-float(str(normal[i][3])))
-    new_el.append('neutral-posture')
-    normal.append(new_el)
+# for i in range(0, 50):
+#     new_el = []
+#     new_el.append(180.0-float(str(normal[i][0])))
+#     new_el.append(180.0-float(str(normal[i][1])))
+#     new_el.append(180.0-float(str(normal[i][2])))
+#     new_el.append(180.0-float(str(normal[i][3])))
+#     new_el.append('neutral-posture')
+#     normal.append(new_el)
+#     print(new_el)
 
 
 shuffled = []
