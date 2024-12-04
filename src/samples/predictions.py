@@ -24,19 +24,19 @@ predictions = {
         "action_ua":'1)Виконуйте вправи, що націлені на обидві сторони тіла для збалансованої сили (наприклад, "собака_птах", бічні планки); 2)Розтягуйте напружені зони вздовж обох вигинів хребта; 3)Працюйте з фізіотерапевтом для цілеспрямованих методів корекції постави.'
     },
     "kyphotic_lordotic_posture":{
-        "description_en":'a posture characterized by an exaggerated curve in both the upper back (kyphosis) and lower back (lordosis), causing forward head posture and pelvic tilt.', 
+        "description_en":'a kyphotic-lordotic posture characterized by an exaggerated curve in both the upper back (kyphosis) and lower back (lordosis), causing forward head posture and pelvic tilt.', 
         "description_ua":'постава, що характеризується надмірним вигином як у верхній частині спини (кіфоз), так і в нижній частині спини (лордоз), що спричиняє положення голови вперед і нахил тазу.',
         "action_en": "1)Strengthen the upper back and glutes with exercises like rows and bridges; 2)Stretch the chest, hip flexors, and lower back to relieve tightness; 3)Practice core stabilization exercises to support proper alignment.",
         "action_ua":'1)Зміцнюйте верхню частину спини та сідниці за допомогою вправ, таких як тяги та містки; 2)Розтягуйте грудні м’язи, згиначі стегон і поперек для зняття напруги; 3)Практикуйте вправи для стабілізації кора, щоб підтримувати правильне вирівнювання.'
     },
     "kyphotic_posture":{
-        "description_en":'a hunched posture caused by excessive curvature of the upper back (thoracic kyphosis), often accompanied by rounded shoulders.', 
+        "description_en":'a kyphotic posture caused by excessive curvature of the upper back (thoracic kyphosis), often accompanied by rounded shoulders.', 
         "description_ua":'згорблена постава через надмірний вигин верхньої частини спини (грудний кіфоз), часто супроводжується округлими плечима.',
         "action_en": "1)Strengthen the upper back muscles with exercises like reverse flys and rows; 2)Stretch the chest and anterior shoulder muscles; 3)Practice exercises to improve spinal mobility, such as cat_cow stretches.",
         "action_ua": "1)Зміцнюйте м’язи верхньої частини спини за допомогою вправ, таких як розведення рук і тяги; 2)Розтягуйте грудні м’язи та передні дельтовидні; 3)Практикуйте вправи для поліпшення рухливості хребта, наприклад, \"кішка_корова\"."
     },
     "lordotic_posture":{
-        "description_en":'a posture with an excessive inward curve of the lower back (lumbar lordosis), often resulting in an anterior pelvic tilt and discomfort.', 
+        "description_en":'a lordotic posture with an excessive inward curve of the lower back (lumbar lordosis), often resulting in an anterior pelvic tilt and discomfort.', 
         "description_ua":'постава, що характеризується надмірним вигином у попереку (поперековий лордоз), що часто спричиняє нахил таза вперед і дискомфорт.',
         "action_en": "1)Strengthen the core and glutes with exercises like planks and glute bridges; 2)Stretch the hip flexors and lower back to reduce tightness; 3)Focus on neutral pelvic alignment during daily activities.",
         "action_ua": "1)Зміцнюйте м’язи кора та сідниці за допомогою вправ, таких як планки й сідничні містки; 2)Розтягуйте згиначі стегон і поперек для зменшення напруги; 3)Зосереджуйтеся на нейтральному вирівнюванні таза під час повсякденних активностей."
