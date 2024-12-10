@@ -7,6 +7,7 @@ import pandas
 from keras.layers import Dense, Dropout
 from keras.models import Sequential
 from keras.utils import to_categorical
+from matplotlib import pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 
 dataframe = pandas.read_csv(os.path.join('model-creation','datasets', 'dataset_side_view.csv'), header=0)
@@ -17,18 +18,15 @@ dataset = dataset.tolist()
 kyphotic_lordotic = dataset[0:50]
 kyphotic = dataset[50:100]
 lordotic = dataset[100:150]
-normal = dataset[150:200]
+normal = dataset[150:250]
 
-# for i in range(0, 50):
-#     new_el = []
-#     new_el.append(180.0-float(str(normal[i][0])))
-#     new_el.append(180.0-float(str(normal[i][1])))
-#     new_el.append(180.0-float(str(normal[i][2])))
-#     new_el.append(180.0-float(str(normal[i][3])))
-#     new_el.append('neutral-posture')
-#     normal.append(new_el)
-#     print(new_el)
-
+val_shuffled = []
+for i in range(0, 5):
+    val_shuffled.append(normal[i])
+    val_shuffled.append(kyphotic_lordotic[i])
+    val_shuffled.append(kyphotic[i])
+    val_shuffled.append(lordotic[i])
+    val_shuffled.append(normal[5+i])
 
 shuffled = []
 for i in range(0, 50):
@@ -40,14 +38,11 @@ for i in range(0, 50):
 
 dataset = shuffled
 
-# random.shuffle(dataset)
-
 X = [i[:-1] for i in dataset]
 Y = [i[-1] for i in dataset]
 
-# for i in range(0, len(X)):
-#     for y in range(0,3):
-#         X[i][y] = round(X[i][y], 2)
+X_val = [i[:-1] for i in val_shuffled]
+Y_val = [i[-1] for i in val_shuffled]
 
 # encode class values as integers
 encoder = LabelEncoder()
@@ -70,10 +65,26 @@ model = Sequential([
 model.compile(optimizer='adam',
               loss='categorical_crossentropy', metrics=['acc'])
 print(model.summary())
-model.fit(np.array(X), np.array(dummy_y), epochs=30, batch_size=10)
+history= model.fit(np.array(X), np.array(dummy_y), epochs=30, batch_size=10, validation_data=(np.array(X_val), np.array(to_categorical(encoder.transform(Y_val)))))
 # Final evaluation of the model
 scores = model.evaluate(np.array(X), np.array(dummy_y), verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
+
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'val'], loc='upper left')
+plt.show()
+
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'val'], loc='upper left')
+plt.show()
 
 #Validate model
 validate_dataframe = pandas.read_csv("test_side_view.csv", header=0)

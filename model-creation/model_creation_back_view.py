@@ -7,6 +7,7 @@ import pandas
 from keras.layers import Dense, Dropout
 from keras.models import Sequential
 from keras.utils import to_categorical
+from matplotlib import pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 
 dataframe = pandas.read_csv(os.path.join('model-creation','datasets', 'dataset_back_view.csv'), header=0)
@@ -19,6 +20,16 @@ right_c_sc = dataset[100:150]
 left_c_sc = dataset[150:200]
 s_sc = dataset[200:250]
 
+
+val_shuffled = []
+for i in range(0, 5):
+    val_shuffled.append(normal[i])
+    val_shuffled.append(right_c_sc[i])
+    val_shuffled.append(left_c_sc[i])
+    val_shuffled.append(s_sc[i])
+    val_shuffled.append(normal[5+i])
+
+# random.shuffle(val_shuffled)
 # for i in range(0, 50):
 #     new_el = []
 #     new_el.append(180.0-float(str(right_c_sc[i][0])))
@@ -71,9 +82,8 @@ dataset = shuffled
 X = [i[:-1] for i in dataset]
 Y = [i[-1] for i in dataset]
 
-# for i in range(0, len(X)):
-#     for y in range(0,3):
-#         X[i][y] = round(X[i][y], 2)
+X_val = [i[:-1] for i in val_shuffled]
+Y_val = [i[-1] for i in val_shuffled]
 
 # encode class values as integers
 encoder = LabelEncoder()
@@ -96,26 +106,44 @@ model = Sequential([
 model.compile(optimizer='adam',
               loss='categorical_crossentropy', metrics=['acc'])
 print(model.summary())
-model.fit(np.array(X), np.array(dummy_y), epochs=25, batch_size=10)
+history = model.fit(np.array(X), np.array(dummy_y), epochs=25, batch_size=10, validation_data=(np.array(X_val), np.array(to_categorical(encoder.transform(Y_val)))))
 # Final evaluation of the model
 scores = model.evaluate(np.array(X), np.array(dummy_y), verbose=0)
 print("Accuracy: %.2f%%" % (scores[1]*100))
 
-validate_dataframe = pandas.read_csv(os.path.join('test-predict','datasets', 'test_back_view.csv'), header=0)
-validate_dataset = validate_dataframe.values
-val_X = [i[:-1] for i in validate_dataset.tolist()]
-val_Y = [i[-1] for i in validate_dataset.tolist()]
+print (history.history['val_acc'])
 
-labels = dict(zip(encoder.classes_, range(len(encoder.classes_))))
-print(labels)
-preds = model.predict(val_X)
-preds = preds.tolist()
-for i in range(0, len(preds)):
-    print(
-        f"\nitem#{i}: {max(preds[i])} - {list(labels.keys())[list(labels.values()).index(preds[i].index(max(preds[i])))]}, but expected - {val_Y[i]}")
-    print(preds[i])
+plt.plot(history.history['acc'])
+plt.plot(history.history['val_acc'])
+plt.title('model accuracy')
+plt.ylabel('accuracy')
+plt.xlabel('epoch')
+plt.legend(['train', 'val'], loc='upper left')
+plt.show()
+
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'val'], loc='upper left')
+plt.show()
+
+# validate_dataframe = pandas.read_csv(os.path.join('test-predict','datasets', 'test_back_view.csv'), header=0)
+# validate_dataset = validate_dataframe.values
+# val_X = [i[:-1] for i in validate_dataset.tolist()]
+# val_Y = [i[-1] for i in validate_dataset.tolist()]
+
+# labels = dict(zip(encoder.classes_, range(len(encoder.classes_))))
+# print(labels)
+# preds = model.predict(val_X)
+# preds = preds.tolist()
+# for i in range(0, len(preds)):
+#     print(
+#         f"\nitem#{i}: {max(preds[i])} - {list(labels.keys())[list(labels.values()).index(preds[i].index(max(preds[i])))]}, but expected - {val_Y[i]}")
+#     print(preds[i])
 
 
-# save the trained model
-model.save(os.path.join('trained-model',
-           'posture_back_view_assessment_trained_model.h5'))
+# # save the trained model
+# model.save(os.path.join('trained-model',
+#            'posture_back_view_assessment_trained_model.h5'))
